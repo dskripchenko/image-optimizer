@@ -10,7 +10,7 @@ Thanks to ImageOptimizer and libraries that it uses, your image files can be **1
 
 Using composer:
 
-    composer require ps/image-optimizer
+    composer require dskripchenko/image-optimizer
 
 # Basic usage
 
