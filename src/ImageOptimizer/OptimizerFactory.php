@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace ImageOptimizer;
 
-
 use ImageOptimizer\Exception\Exception;
+use ImageOptimizer\Metadata\MetadataStripper;
 use ImageOptimizer\TypeGuesser\TypeGuesser;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -126,6 +126,12 @@ class OptimizerFactory
                     return ['--input' => $filepath, '--output' => $filepath];
                 }
             )
+        );
+
+        // Never wrapped in SuppressErrorOptimizer: metadata that stays by mistake is a leak, not a slower file.
+        $this->optimizers['strip_metadata'] = new ChangedOutputOptimizer(
+            $this->option('output_filepath_pattern'),
+            new MetadataStripper()
         );
 
         foreach($this->options['custom_optimizers'] as $key => $options) {

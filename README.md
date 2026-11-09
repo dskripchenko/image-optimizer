@@ -24,6 +24,27 @@ $optimizer->optimize($filepath);
 //optimized file overwrites original one
 ```
 
+# Removing metadata
+
+Photos carry metadata: the camera, the time, often the GPS position where they were taken. `MetadataStripper`
+removes it from JPEG, PNG and WebP files in pure PHP — no external tool, and the pixels are not re-encoded:
+
+```php
+$factory = new \ImageOptimizer\OptimizerFactory();
+$factory->get('strip_metadata')->optimize($filepath);
+
+// or directly, on a string
+$clean = (new \ImageOptimizer\Metadata\MetadataStripper())->strip($bytes);
+```
+
+* Removed: EXIF (with its GPS data and thumbnails), XMP, IPTC, comments, PNG text chunks.
+* Kept: the colour profile (ICC), JFIF and Adobe segments; the orientation of a JPEG stays as a minimal EXIF block
+  with that one tag, so the picture is not shown rotated.
+* Other formats are returned unchanged.
+* It never fails silently: a broken file throws, even with `ignore_errors` on — metadata left by mistake is a leak.
+
+Run it before the other optimizers when the metadata must go even where those tools are not installed.
+
 # Configuration
 
 By default optimizer does not throw any exception, if file can not be optimized or optimizing library for given file is

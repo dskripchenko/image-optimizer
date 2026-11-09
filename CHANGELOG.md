@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+* 2.2.0 (2026-11-09)
+
+  * `MetadataStripper` and the `strip_metadata` optimizer: EXIF (with GPS), XMP,
+    IPTC and comments removed from JPEG, PNG and WebP in pure PHP, without
+    re-encoding; the JPEG orientation and the colour profile are kept
+
 * 2.0.5 (2021-09-30)
 
   * [#77] Fixed the bug that the copied files were not deleted when the optimization failed
