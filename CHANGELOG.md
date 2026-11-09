@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+* 2.2.1 (2026-11-09)
+
+  * Symfony 8: `symfony/process` and `symfony/options-resolver` 8.x allowed
+
 * 2.2.0 (2026-11-09)
 
   * `MetadataStripper` and the `strip_metadata` optimizer: EXIF (with GPS), XMP,
